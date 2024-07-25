@@ -1,25 +1,23 @@
 #!/usr/bin/python3
+"""Module for making change.
+"""
+
 
 def makeChange(coins, total):
-    """make change
-
-    Arguments
-    ---------
-    coints: list of int or float
-    total: int or float
-
-    Return
-    ------
-    int
+    """Given a pile of coins of different values, determine the fewest number
+    of coins needed to meet a given amount total.
     """
-    sum = 0
-    _len = len(coins)
     if total <= 0:
         return 0
-    else:
-        for i in coins:
-            sum += i
-        if sum > total:
-            return (-1)
-        else:
-            return (_len)
+
+    coins.sort(reverse=True)
+    num_coins = 0
+
+    for coin in coins:
+        if total <= 0:
+            break
+
+        num_coins += total // coin
+        total %= coin
+
+    return num_coins if total == 0 else -1
